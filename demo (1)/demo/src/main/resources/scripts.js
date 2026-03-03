@@ -29,8 +29,10 @@ function userAddRow(user) {
 
 function userBuildTableRow(user) {
    return "<tr>" +
+      "<td>" + user.id + "</td>" +
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
+      "<td><button type='button' class='btn btn-primary' onclick='deleteUser(" + user.id + ");'> Delete</button></td>" +
       "</tr>";
 }
 
@@ -104,7 +106,21 @@ function updateLastNameClick() {
       type: 'POST',
       success: function () {
          userDeleteSuccess();
-         userList;
+         userList();
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
+
+function deleteUser(userId) {
+   $.ajax({
+      url: "http://localhost:8080/api/users/" + userId,
+      type: 'DELETE',
+      success: function (user) {
+         userDeleteSuccess();
+         userList();
       },
       error: function (request, message, error) {
          handleException(request, message, error);
