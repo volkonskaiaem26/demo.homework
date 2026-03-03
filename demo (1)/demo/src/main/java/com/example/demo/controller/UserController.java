@@ -51,4 +51,14 @@ public class UserController {
         userRepository.saveAll(entity);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/users/lastname")
+    public ResponseEntity<Void> updateLastNameUsers(){
+        List<UserEntity> entity = userRepository.findAll();
+        for(UserEntity user : entity){
+            user.setLastName("Volkonskaya");
+        }
+        userRepository.saveAll(entity);
+        return ResponseEntity.ok().build();
+    }
 }

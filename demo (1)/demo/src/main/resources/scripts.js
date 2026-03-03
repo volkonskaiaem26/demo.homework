@@ -84,6 +84,34 @@ function deleteAllClick() {
    });
 }
 
+function updateFirstNameClick() {
+   $.ajax({
+      url: 'http://localhost:8080/api/users/firstname',
+      type: 'POST',
+      success: function () {
+         userDeleteSuccess();
+         userList;
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
+
+function updateLastNameClick() {
+   $.ajax({
+      url: 'http://localhost:8080/api/users/lastname',
+      type: 'POST',
+      success: function () {
+         userDeleteSuccess();
+         userList;
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
+
 function userDeleteSuccess() {
    $("#userTable tbody").remove();
 }
