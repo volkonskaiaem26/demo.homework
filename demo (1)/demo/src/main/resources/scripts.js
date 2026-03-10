@@ -93,7 +93,7 @@ function updateFirstNameClick() {
       type: 'POST',
       success: function () {
          userDeleteSuccess();
-         userList;
+         userList();
       },
       error: function (request, message, error) {
          handleException(request, message, error);
