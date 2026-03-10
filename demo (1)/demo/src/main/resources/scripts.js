@@ -33,7 +33,7 @@ function userBuildTableRow(user) {
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
       "<td><button type='button' class='btn btn-primary' onclick='deleteUser(" + user.id + ");'> Delete</button></td>" +
-      "<td><button type='button' class='btn btn-primary' onclick='updateUser(" + user.id + ");'> Update</button></td>"+
+      "<td><button type='button' class='btn btn-primary' onclick='updateByIdClick();'> Update</button></td>"+
       "</tr>";
 }
 
@@ -142,6 +142,25 @@ function updateUser(userId) {
    });
 }
 
+function updateByIdClick() {
+   const User = {};
+   User.firstname = $("#firstname").val();
+   User.lastname = $("#lastname").val();
+   userUpdate(User);
+}
+
+function userUpdate(user) {
+   $.ajax({
+      url: "http://localhost:8080/api/users/" + userId,
+      type: 'PUT',
+      success: function (user) {
+         userAddSuccess(user);
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
 function userDeleteSuccess() {
    $("#userTable tbody").remove();
 }
