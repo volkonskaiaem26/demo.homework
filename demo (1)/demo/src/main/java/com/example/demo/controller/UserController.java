@@ -67,4 +67,12 @@ public class UserController {
         userRepository.deleteById(userId);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("users/{userId}")
+    public ResponseEntity<Void> updateUserById(@PathVariable("userId") long userId, @RequestBody UserInfo userInfo){
+        UserEntity user = userRepository.findById(userId).get();
+        user.setFirstName(userInfo.getFirstName());
+        user.setLastName(userInfo.getLastName());
+        return ResponseEntity.ok().build();
+    }
 }
