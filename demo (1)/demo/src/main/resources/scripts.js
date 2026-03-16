@@ -34,6 +34,7 @@ function userBuildTableRow(user) {
       "<td>" + user.lastname + "</td>" +
       "<td><button type='button' class='btn btn-primary' onclick='deleteUser(" + user.id + ");'> Delete</button></td>" +
       "<td><button type='button' class='btn btn-primary' onclick='updateByIdClick("+ user.id +");'> Update</button></td>"+
+      "<td><label><input type='checkbox' id='checkBox'></label></td>"
       "</tr>";
 }
 
@@ -152,6 +153,27 @@ function userUpdate(user, userId) {
       }
    });
 }
+
+function deleteUserChecked(userId){
+   $.ajax({
+      url: "http://localhost:8080/api/users/checked"+userId,
+      type: 'DELETE',
+      success: function (user) {
+         const checkbox = document.getElementById(userId);
+         console.log("checkBox")
+         if (checkbox) {
+            if(checkbox.checked){
+               userDeleteSuccess;
+            }
+         }
+         userList();
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
+
 function userDeleteSuccess() {
    $("#userTable tbody").remove();
 }

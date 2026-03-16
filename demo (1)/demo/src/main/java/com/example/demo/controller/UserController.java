@@ -76,4 +76,10 @@ public class UserController {
         userRepository.save(user);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("users/checked/{userId}")
+    public ResponseEntity<Void> deleteUserByChecked(@PathVariable("userId") long userId) {
+        userRepository.deleteById(userId);
+        return ResponseEntity.ok().build();
+    }
 }
