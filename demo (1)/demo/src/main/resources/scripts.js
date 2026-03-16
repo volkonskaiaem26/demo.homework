@@ -33,7 +33,7 @@ function userBuildTableRow(user) {
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
       "<td><button type='button' class='btn btn-primary' onclick='deleteUser(" + user.id + ");'> Delete</button></td>" +
-      "<td><button type='button' class='btn btn-primary' onclick='updateByIdClick();'> Update</button></td>"+
+      "<td><button type='button' class='btn btn-primary' onclick='updateByIdClick("+ user.id +");'> Update</button></td>"+
       "</tr>";
 }
 
@@ -129,32 +129,23 @@ function deleteUser(userId) {
    });
 }
 
-function updateUser(userId) {
-   $.ajax({
-      url: "http://localhost:8080/api/users/" + userId,
-      type: 'PUT',
-      success: function (user) {
-         userAddSuccess(user);
-      },
-      error: function (request, message, error) {
-         handleException(request, message, error);
-      }
-   });
-}
 
-function updateByIdClick() {
+function updateByIdClick(userId) {
    const User = {};
    User.firstname = $("#firstname").val();
    User.lastname = $("#lastname").val();
-   userUpdate(User);
+   userUpdate(User, userId);
 }
 
-function userUpdate(user) {
+function userUpdate(user, userId) {
    $.ajax({
       url: "http://localhost:8080/api/users/" + userId,
       type: 'PUT',
+      contentType: "application/json;charset=utf-8",
+      data: JSON.stringify(user),
       success: function (user) {
-         userAddSuccess(user);
+         userDeleteSuccess();
+         userList();
       },
       error: function (request, message, error) {
          handleException(request, message, error);

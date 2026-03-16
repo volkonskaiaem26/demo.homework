@@ -73,6 +73,7 @@ public class UserController {
         UserEntity user = userRepository.findById(userId).get();
         user.setFirstName(userInfo.getFirstName());
         user.setLastName(userInfo.getLastName());
+        userRepository.save(user);
         return ResponseEntity.ok().build();
     }
 }
