@@ -23,7 +23,7 @@ public class UserController {
         List<UserEntity> users = userRepository.findAll();
         List<UserInfo> resultUsers = new ArrayList<>();
         for (UserEntity user : users) {
-            resultUsers.add(new UserInfo(user.getId(), user.getFirstName(), user.getLastName()));
+            resultUsers.add(new UserInfo(user.getId(), user.getFirstName(), user.getLastName(), user.getAge(), user.getGender()));
         }
 
         return ResponseEntity.ok(resultUsers);
@@ -31,8 +31,8 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<UserInfo> createUser(@RequestBody UserInfo userInfo) {
-        UserEntity user = userRepository.save(new UserEntity(userInfo.getFirstName(), userInfo.getLastName()));
-        return ResponseEntity.ok(new UserInfo(user.getId(), userInfo.getFirstName(), userInfo.getLastName()));
+        UserEntity user = userRepository.save(new UserEntity(userInfo.getFirstName(), userInfo.getLastName(), userInfo.getAge(), userInfo.getGender()));
+        return ResponseEntity.ok(new UserInfo(user.getId(), userInfo.getFirstName(), userInfo.getLastName(), userInfo.getAge(), userInfo.getGender()));
 
     }
 
@@ -73,13 +73,8 @@ public class UserController {
         UserEntity user = userRepository.findById(userId).get();
         user.setFirstName(userInfo.getFirstName());
         user.setLastName(userInfo.getLastName());
+        user.setAge(userInfo.getAge());
         userRepository.save(user);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("users/checked/{userId}")
-    public ResponseEntity<Void> deleteUserByChecked(@PathVariable("userId") long userId) {
-        userRepository.deleteById(userId);
         return ResponseEntity.ok().build();
     }
 }

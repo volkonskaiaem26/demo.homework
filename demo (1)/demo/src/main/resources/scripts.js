@@ -32,9 +32,11 @@ function userBuildTableRow(user) {
       "<td>" + user.id + "</td>" +
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
+      "<td>" + user.age + "</td>" +
+      "<td>" + user.gender + "</td>"
       "<td><button type='button' class='btn btn-primary' onclick='deleteUser(" + user.id + ");'> Delete</button></td>" +
       "<td><button type='button' class='btn btn-primary' onclick='updateByIdClick("+ user.id +");'> Update</button></td>"+
-      "<td><label><input type='checkbox' id='checkBox'></label></td>"
+      "<td><label><input type='checkbox' id='" + user.id + "'></label></td>"
       "</tr>";
 }
 
@@ -57,6 +59,13 @@ function updateClick() {
    const User = {};
    User.firstname = $("#firstname").val();
    User.lastname = $("#lastname").val();
+   User.age = $("#age").val();
+   if(document.getElementById('female').checked){
+      User.gender = "female";
+   }
+   if(document.getElementById('male').checked){
+      User.gender = "male"
+   }
    userAdd(User);
 }
 
@@ -135,6 +144,7 @@ function updateByIdClick(userId) {
    const User = {};
    User.firstname = $("#firstname").val();
    User.lastname = $("#lastname").val();
+   User.age = $("#age").val();
    userUpdate(User, userId);
 }
 
@@ -154,22 +164,25 @@ function userUpdate(user, userId) {
    });
 }
 
-function deleteUserChecked(userId){
+function CheckBoxList() {
    $.ajax({
-      url: "http://localhost:8080/api/users/checked"+userId,
-      type: 'DELETE',
-      success: function (user) {
-         const checkbox = document.getElementById(userId);
-         console.log("checkBox")
-         if (checkbox) {
-            if(checkbox.checked){
-               userDeleteSuccess;
-            }
-         }
-         userList();
+      url: 'http://localhost:8080/api/users',
+      type: 'GET',
+      dataType: 'json',
+      success: function (users) {
+         CheckBoxClicked(users);
       },
       error: function (request, message, error) {
          handleException(request, message, error);
+      }
+   });
+}
+
+function CheckBoxClicked(users){
+   $.each(users, function (index, user) {
+      const checkbox = document.getElementById(user.id);
+      if(checkbox.checked){
+         deleteUser(user.id);
       }
    });
 }

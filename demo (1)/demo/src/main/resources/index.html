@@ -21,6 +21,8 @@
                       <th>Id</th>
                      <th>Firstname</th>
                      <th>LastName</th>
+                      <th>Age</th>
+                      <th>Gender</th>
                       <th>DELETE</th>
                       <th>UPDATE</th>
                       <th>CHECKBOX</th>
@@ -50,6 +52,20 @@
          <label for="lastname">Lastname</label>
          <input type="text" id="lastname" class="form-control"/>
       </div>
+      <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" class="form-control"/>
+      </div>
+      <form>
+          <p>Select gender</p>
+          <div>
+              <input type="radio" id="female"/>
+              <label for="female">Female</label>
+
+              <input type="radio" id="male"/>
+              <label for="male">Male</label>
+          </div>
+      </form>
       <div class="row">
          <div class="col-xs-12">
             <button type="button"
@@ -98,7 +114,7 @@
               <button type="button"
                       id="deleteCheckedButton"
                       class="btn btn-primary"
-                      onclick="deleteUserChecked();">
+                      onclick="CheckBoxList();">
                   Delete CheckBox
               </button>
           </div>
