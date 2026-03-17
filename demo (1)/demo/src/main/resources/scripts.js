@@ -33,7 +33,7 @@ function userBuildTableRow(user) {
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
       "<td>" + user.age + "</td>" +
-      "<td>" + user.gender + "</td>"
+      "<td>" + user.gender + "</td>" +
       "<td><button type='button' class='btn btn-primary' onclick='deleteUser(" + user.id + ");'> Delete</button></td>" +
       "<td><button type='button' class='btn btn-primary' onclick='updateByIdClick("+ user.id +");'> Update</button></td>"+
       "<td><label><input type='checkbox' id='" + user.id + "'></label></td>"
